@@ -1,0 +1,40 @@
+---
+---
+<section class="bg-gray-50 border-y">
+    <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12">
+        <div class="mx-auto max-w-2xl text-center">
+            <div>
+                <p class="text-gray-600 lg:text-4xl text-3xl tracking-tighter mb-3">
+                    Webshop
+                </p>
+                <p class="text-sm tracking-tight text-gray-600">
+                    <span id="rotating-webshop-title" class="bg-red-500 text-white p-2">DOPUNE</span><span id="blinking-cursor" class="text-lg">|</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const rotatingText = document.getElementById('rotating-webshop-title');
+    const textOptions = ['DOPUNE', 'VAUCERI']; // Add more options as needed
+    let currentIndex = 0;
+
+    function rotateText() {
+        rotatingText.textContent = textOptions[currentIndex];
+        currentIndex = (currentIndex + 1) % textOptions.length;
+    }
+
+    setInterval(rotateText, 3000); // Change text every 3 seconds (adjust as needed)
+</script>
+<style>
+    #blinking-cursor {
+        animation: cursor-blink 1s step-start infinite;
+    }
+
+    @keyframes cursor-blink {
+        50% {
+            opacity: 0;
+        }
+    }
+</style>

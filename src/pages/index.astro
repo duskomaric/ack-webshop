@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navigation from "../components/global/Navigation.astro";
+
+import Hero from "../components/global/Hero.astro";
+import Footer from "../components/global/Footer.astro";
+import { AstroSeo } from "@astrolib/seo";
+import Achievements from "../components/global/Achievements.astro";
+import HowItWorks from "../components/global/HowItWorks.astro";
+import AboutUs from "../components/global/AboutUs.astro";
+---
+
+<!---
+Use AstroSeo in all the pages you want different Seo than the index page
+-->
+<AstroSeo
+  title="ACK | Posredovanja u prodaji elektronskih usluga"
+  description="Posredovanja u prodaji elektronskih usluga"
+  canonical="https://www.ackrila.com"
+
+/>
+<BaseLayout>
+  <Navigation />
+  <Hero />
+
+  <HowItWorks />
+  <Achievements />
+  <AboutUs />
+  <Footer />
+</BaseLayout>

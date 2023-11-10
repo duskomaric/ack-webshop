@@ -1,0 +1,82 @@
+ ---
+import WebShopButton from "./WebShopButton.astro";
+ ---
+<section  class="sticky top-0 bg-white border-b border-black/5">
+  <div class="w-full mx-auto md:px-12 px-8 max-w-7xl lg:px-16">
+    <div id="nav"
+        x-data="{ open: false }"
+        class="relative flex flex-col w-full py-6 mx-auto bg-white md:items-center md:justify-between md:flex-row md:px-6">
+      <div class="flex flex-row items-center justify-between lg:justify-start">
+        <a href="/" class="text-black inline-flex items-center gap-3">
+          <img alt="" class="max-h-10" src="/logo.svg">
+        </a>
+        <button
+            @click="open = !open"
+            class="inline-flex items-center justify-center p-2 text-gray-400 hover:text-black focus:outline-none focus:text-black md:hidden">
+          <svg
+              class="w-6 h-6"
+              stroke="currentColor"
+              fill="none"
+              viewBox="0 0 24 24">
+            <path
+                :class="{'hidden': open, 'inline-flex': !open }"
+                class="inline-flex"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16">
+            </path>
+            <path
+                :class="{'hidden': !open, 'inline-flex': open }"
+                class="hidden"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12">
+            </path>
+          </svg>
+        </button>
+      </div>
+      <nav :class="{'flex': open, 'hidden': !open}"
+           class="flex-col items-center hidden md:pb-0 md:flex md:justify-end md:flex-row">
+
+        <a class="px-2 lg:px-4 py-2 md:px-1 text-xs font-medium text-black hover:text-sky-600"
+           href="/#pocetna">POČETNA</a>
+
+        <a class="px-2 lg:px-4 py-2 md:px-1 text-xs font-medium text-black hover:text-sky-600"
+           href="/#kako-webshop-radi">KAKO WEBSHOP RADI</a>
+
+        <a class="px-2 lg:px-4 py-2 md:px-1 text-xs font-medium text-black hover:text-sky-600"
+           href="/#dostignuca">DOSTIGNUĆA</a>
+
+        <a class="px-2 lg:px-4 py-2 md:px-1 text-xs font-medium text-black hover:text-sky-600 md:mr-10"
+           href="/#o-nama">O NAMA</a>
+
+        <div class="inline-flex items-center gap-2 list-none lg:ml-auto">
+          <WebShopButton />
+        </div>
+      </nav>
+    </div>
+  </div>
+</section>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const navigation = document.getElementById('nav');
+
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 0) { console.log('scroll')
+        navigation.classList.add('shrinks');
+      } else {
+        navigation.classList.remove('shrinks');
+      }
+    });
+  });
+</script>
+
+<style>
+  .shrinks {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    transition: padding 0.8s;
+  }
+</style>

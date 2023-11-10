@@ -1,0 +1,59 @@
+---
+import PartnersCarousels from "./PartnersCarousels.astro";
+---
+<section id="o-nama" class="bg-gray-50 border-y">
+    <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12">
+        <div class="mx-auto max-w-2xl text-center">
+            <div>
+                <p class="text-gray-600 lg:text-4xl text-3xl tracking-tighter  mb-3">
+                    O nama
+                </p>
+                <p  class="text-sm tracking-tight text-gray-600">
+                    <span id="rotating-text-o-nama" class="bg-red-500 text-white p-2">NAŠA PRIČA</span> U TEKSTU ISPOD<span id="blinking-cursor" class="text-lg relative">|</span>
+                </p>
+            </div>
+        </div>
+        <div class="mx-auto max-w-7xl pt-12">
+            <p class="text-gray-600">
+                Firma AERO CENTAR KRILA je osnovana 2007 sa sjedištem u Banja Luci. Od 2007.g. osnovna djelatnost
+                su usluge u posredovanja u prodaji elektronskih dopuna mobilnih operatera (Mtel, BH telekom, HT
+                eronet i Haloo) sa preko 4000 POS terminala/aplikacija, odnosno prodajnih mjesta na teritoriji
+                cijele Bosne i Hercegovine. Pored toga se bavi procesingom, kao i posredovanjem u zaključivanju
+                pretplatničkih ugovora sa fizičkim licima (rezidencijala) za fiksnu i mobilnu telefoniju za MTEL
+                operatera (ADSL, IPTV i MSAT usluge) Od 2017.g. i tokom 2018. godine aktivira usluge posredovanja
+                u prodaji elektronskih vaučera. Poslovni rast i neposredni kontakt sa maloprodajom i potrošačima
+                omogućuju da u najkraćem roku odgovori na sve tržišne izazove i kreira trendove koji unapredjuju
+                zadovoljstvo kako poslovnih partnera, tako i krajnjih korisnika i usluga. Naša posvećena ekipa
+                čini srž našeg uspeha.
+            </p>
+            <p class="mt-3 text-gray-600">
+                Svaki član tima donosi jedinstvene vještine i stručnost, stvarajući harmoniju koja omogućava ostvarivanje naših ciljeva.
+            </p>
+        </div>
+    </div>
+</section>
+<PartnersCarousels />
+
+<script>
+    const rotatingText = document.getElementById('rotating-text-o-nama');
+    const textOptions = ['NAŠA PRIČA', 'DUGOGODIŠNJE ISKUSTVO']; // Add more options as needed
+    let currentIndex = 0;
+
+    function rotateText() {
+        rotatingText.textContent = textOptions[currentIndex];
+        currentIndex = (currentIndex + 1) % textOptions.length;
+    }
+
+    setInterval(rotateText, 3000); // Change text every 3 seconds (adjust as needed)
+</script>
+<style>
+    #blinking-cursor {
+        animation: cursor-blink 1s step-start infinite;
+    }
+
+    @keyframes cursor-blink {
+        50% {
+            opacity: 0;
+        }
+    }
+</style>
