@@ -43,14 +43,33 @@ const {id} = Astro.params;
                             </div>
                             <div class="flex flex-wrap items-center ">
                                 <div class="mb-4 mr-4 lg:mb-0">
-                                    <div class="w-28">
-                                        <div class="flex flex-row w-full h-10 bg-transparent rounded-lg">
-                                            <input type="number" id="amount" name="amount"
-                                                   class="w-full rounded-md border border-gray-200 px-4 py-3
-                                                    text-sm shadow-sm outline-none focus:scale-110 focus:z-10
-                                                   focus:border-blue-500 focus:ring-blue-500"
-                                                   placeholder="0.00"/>
+                                    <div class="w-full">
+                                        <div class="flex gap-3 flex-row w-full h-10 bg-transparent rounded-lg">
+                                            <template x-if="service.type === 'SERVICE'">
+                                                <input type="text" id="phone_number" name="amount"
+                                                       class="w-full rounded-md border border-gray-200
+                                                        text-sm shadow-sm outline-none focus:scale-105 focus:z-10
+                                                       focus:border-sky-500 focus:ring-sky-500"
+                                                       placeholder="065 123 123"/>
+                                            </template>
+                                            <template x-if="!service.isAmountPredefined">
+                                                <input type="number" id="amount" name="amount"
+                                                       class="w-full rounded-md border border-gray-200
+                                                        text-sm shadow-sm outline-none focus:scale-105 focus:z-10
+                                                       focus:border-sky-500 focus:ring-sky-500"
+                                                       placeholder="0.00"/>
+                                            </template>
 
+                                            <template x-if="service.isAmountPredefined">
+                                                <select name="amount_option"
+                                                       class="w-36 rounded-md border border-gray-200
+                                                        text-sm shadow-sm outline-none focus:scale-105 focus:z-10
+                                                       focus:border-sky-500 focus:ring-sky-500">
+                                                        <template x-for="amount in service.amountsPredefined">
+                                                            <option :value="amount/100" x-text="amount/100"></option>
+                                                        </template>
+                                                </select>
+                                            </template>
                                         </div>
                                     </div>
                                 </div>
