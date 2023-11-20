@@ -12,11 +12,12 @@ import WebShopButton from "./WebShopButton.astro";
         </a>
         <button
             @click="open = !open"
-            class="inline-flex items-center justify-center p-2 text-gray-400 hover:text-black focus:outline-none focus:text-black md:hidden">
+            class="inline-flex items-center justify-center p-2 text-gray-400 focus:outline-none focus:text-black md:hidden transition-transform duration-300 ease-in-out transform">
           <svg
-              class="w-6 h-6"
+              class="w-6 h-6 transition-transform duration-300 ease-in-out transform"
               stroke="currentColor"
               fill="none"
+              :class="{ 'rotate-0 scale-100': !open, 'rotate-180 scale-90': open }"
               viewBox="0 0 24 24">
             <path
                 :class="{'hidden': open, 'inline-flex': !open }"
