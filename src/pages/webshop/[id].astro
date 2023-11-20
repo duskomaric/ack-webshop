@@ -8,18 +8,63 @@ const {id} = Astro.params;
 ---
 <BaseLayout>
     <Navigation/>
-    <WebshopTitle />
+    <WebshopTitle/>
     <section class="py-20 overflow-hidden bg-white">
         <div x-data="{
-                    service: null,
-                    async fetchService() {
-                        this.result = await (await fetch(window.servicesApi+serviceId))
-                        .json()
-                        .then(data => {
-                                    this.service = data.data;
-                                });
+        service: null,
+        formData: {
+            phoneNumber: '',
+            email: '',
+            amount: ''
+        },
+        displayAmount: '',  // For displaying amount to the user
+
+        updateAmount(displayAmount) {
+            this.displayAmount = displayAmount;  // Update the displayed amount
+            this.formData.amount = displayAmount * 100;  // Update the actual amount in cents
+        },
+
+        validationErrors: {
+            amount: '',
+            phoneNumber: '',
+            email: ''
+        },
+
+        async fetchService() {
+            this.service = await (await fetch(window.servicesApi + window.serviceId))
+                .json()
+                .then(data => data.data);
+        },
+
+
+        async submitForm() {
+                try {
+                    const response = await fetch(window.servicesApi + window.serviceId + '/buy', {
+                        method: 'POST',
+                        body: JSON.stringify(this.formData),
+                        headers: {
+                            'accept': 'application/json',
+                            'Content-Type': 'application/json'
                         }
-                    }"
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok) {
+                        // If successful, redirect to the payment URL
+                        window.location.href = result.order.transaction.browser_redirection_url;
+                    } else {
+                        this.validationErrors.amount = result.errors.amount ? result.errors.amount[0] : '';
+                        this.validationErrors.phoneNumber = result.errors.phoneNumber ? result.errors.phoneNumber[0] : '';
+                        this.validationErrors.email = result.errors.email ? result.errors.email[0] : '';
+                    }
+
+                } catch (error) {
+                    console.error('Error:', error.message);
+                }
+}
+
+    }"
              x-init="fetchService()"
              class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
             <div class="flex flex-wrap -mx-4">
@@ -41,48 +86,68 @@ const {id} = Astro.params;
                                     Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
                                 </p>
                             </div>
-                            <div class="flex flex-wrap items-center ">
-                                <div class="mb-4 mr-4 lg:mb-0">
-                                    <div class="w-full">
-                                        <div class="flex gap-3 flex-row w-full h-10 bg-transparent rounded-lg">
-                                            <template x-if="service.type === 'SERVICE'">
-                                                <input type="text" id="phone_number" name="amount"
-                                                       class="w-full rounded-md border border-gray-200
+                            <div class="flex flex-col gap-3 max-w-md bg-transparent rounded-lg">
+                                <div>
+                                    <input
+                                            x-model="formData.phoneNumber"
+                                            type="text" id="phone_number" name="phone_number"
+                                            class="w-full rounded-md border border-gray-200
                                                         text-sm shadow-sm outline-none focus:scale-105 focus:z-10
                                                        focus:border-sky-500 focus:ring-sky-500"
-                                                       placeholder="065 123 123"/>
-                                            </template>
-                                            <template x-if="!service.isAmountPredefined">
-                                                <input type="number" id="amount" name="amount"
-                                                       class="w-full rounded-md border border-gray-200
-                                                        text-sm shadow-sm outline-none focus:scale-105 focus:z-10
-                                                       focus:border-sky-500 focus:ring-sky-500"
-                                                       placeholder="0.00"/>
-                                            </template>
-
-                                            <template x-if="service.isAmountPredefined">
-                                                <select name="amount_option"
-                                                       class="w-36 rounded-md border border-gray-200
-                                                        text-sm shadow-sm outline-none focus:scale-105 focus:z-10
-                                                       focus:border-sky-500 focus:ring-sky-500">
-                                                        <template x-for="amount in service.amountsPredefined">
-                                                            <option :value="amount/100" x-text="amount/100"></option>
-                                                        </template>
-                                                </select>
-                                            </template>
-                                        </div>
-                                    </div>
+                                            placeholder="Broj telefona *"/>
+                                    <p x-show="validationErrors.phoneNumber !== ''"
+                                       class="text-red-500 text-sm mt-1"
+                                       x-text="validationErrors.phoneNumber"></p>
                                 </div>
-                                <div class="mb-4 mr-4 lg:mb-0">
-                                    <a class="max-w-min h-12 font-medium rounded-lg text-white
+                                <div>
+                                    <input
+                                            x-model="formData.email"
+                                            type="email" id="email" name="email"
+                                            class="w-full rounded-md border border-gray-200
+                                                        text-sm shadow-sm outline-none focus:scale-105 focus:z-10
+                                                       focus:border-sky-500 focus:ring-sky-500"
+                                            placeholder="Email *"/>
+
+                                    <p x-show="validationErrors.email !== ''"
+                                       class="text-red-500 text-sm mt-1"
+                                       x-text="validationErrors.email"></p>
+                                </div>
+                                <div>
+                                    <template x-if="!service.isAmountPredefined">
+                                        <input
+                                                x-model="displayAmount"
+                                                type="number" id="amount" name="amount"
+                                                class="w-full rounded-md border border-gray-200
+                                                            text-sm shadow-sm outline-none focus:scale-105 focus:z-10
+                                                            focus:border-sky-500 focus:ring-sky-500"
+                                                placeholder="Iznos *"
+                                                x-on:input="updateAmount($event.target.value)"
+                                        />
+                                    </template>
+
+                                    <template x-if="service.isAmountPredefined">
+                                        <select
+                                                x-model="formData.amount"
+                                                name="amount"
+                                                class="w-36 rounded-md border border-gray-200
+                                                            text-sm shadow-sm outline-none focus:scale-105 focus:z-10
+                                                            focus:border-sky-500 focus:ring-sky-500">
+                                            <template x-for="amountOption in service.amountsPredefined">
+                                                <option :value="amountOption" x-text="amountOption/100"></option>
+                                            </template>
+                                        </select>
+                                    </template>
+
+                                    <p x-show="validationErrors.amount !== ''" class="text-red-500 text-sm mt-1"
+                                       x-text="validationErrors.amount"></p>
+                                </div>
+                                <a class="max-w-min h-12 font-medium rounded-lg text-white
                                     focus-visible:outline-white focus:outline-none
                                     bg-red-600 duration-200 focus-visible:ring-white
                                     hover:bg-red-500 lg:w-auto px-6 py-3"
-                                       href="/webshop">
-                                        Kupi
-                                    </a>
-                                </div>
-
+                                   @click="submitForm">
+                                    Kupi
+                                </a>
                             </div>
                         </div>
                     </div>
