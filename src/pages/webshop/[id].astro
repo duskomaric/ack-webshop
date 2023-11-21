@@ -142,7 +142,7 @@ const {id} = Astro.params;
                                                             focus:border-sky-500 focus:ring-sky-500">
                                             <option value="Iznos">Iznos</option>
                                             <template x-for="amountOption in service.amountsPredefined">
-                                                <option :value="amountOption" x-text="amountOption/100"></option>
+                                                <option :value="amountOption" x-text="(amountOption/100).toFixed(2)"></option>
                                             </template>
                                         </select>
                                     </template>
