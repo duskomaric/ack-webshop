@@ -78,8 +78,7 @@
     }
 </style>
 
-<script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
 <script>
     const rotatingText = document.getElementById('rotating-text-dostignuca');
     const textOptions = ['VRIJEME', 'NOVAC']; // Add more options as needed
@@ -92,15 +91,7 @@
 
     setInterval(rotateText, 3000); // Change text every 3 seconds (adjust as needed)
 
-    tailwind.config = {
-        theme: {
-            extend: {
-                fontFamily: {
-                    inter: ['Inter', 'sans-serif'],
-                },
-            },
-        },
-    };
+
 </script>
 <style>
     #blinking-cursor {
