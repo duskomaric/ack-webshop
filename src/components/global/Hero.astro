@@ -5,7 +5,7 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/services/`;
     <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24">
         <div class="flex gap-5 flex-wrap justify-center"
              x-data="{
-                    services: null,
+                    services: {},
                     async fetchServices() {
                         this.result = await (await fetch(window.servicesApi))
                         .json()
