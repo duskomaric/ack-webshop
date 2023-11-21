@@ -11,7 +11,7 @@ const {id} = Astro.params;
     <WebshopTitle/>
     <section class="py-20 overflow-hidden bg-white">
         <div x-data="{
-        service: null,
+        service: {},
         formData: {
             phoneNumber: '',
             email: '',
@@ -157,7 +157,9 @@ const {id} = Astro.params;
                                    @click="submitForm">
                                     Kupi
                                 </a>
-                                <p x-if="generalError !== ''" class="text-red-500 text-sm mt-1" x-text="generalError"></p>
+                                <template x-if="generalError !== ''">
+                                    <p class="text-red-500 text-sm mt-1" x-text="generalError"></p>
+                                </template>
                             </div>
                         </div>
                     </div>
