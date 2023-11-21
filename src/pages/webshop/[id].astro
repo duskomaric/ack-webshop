@@ -30,6 +30,8 @@ const {id} = Astro.params;
             email: ''
         },
 
+        generalError: '',
+
         async fetchService() {
             this.service = await (await fetch(window.servicesApi + window.serviceId))
                 .json()
@@ -52,15 +54,19 @@ const {id} = Astro.params;
 
                     if (response.ok) {
                         // If successful, redirect to the payment URL
-                        window.location.href = result.order.transaction.browser_redirection_url;
+                        window.location.href = result.data.transaction.browser_redirection_url;
                     } else {
-                        this.validationErrors.amount = result.errors.amount ? result.errors.amount[0] : '';
-                        this.validationErrors.phoneNumber = result.errors.phoneNumber ? result.errors.phoneNumber[0] : '';
-                        this.validationErrors.email = result.errors.email ? result.errors.email[0] : '';
+                        this.validationErrors.amount = result.errors && result.errors.amount ? result.errors.amount[0] : '';
+                        this.validationErrors.phoneNumber = result.errors && result.errors.phoneNumber ? result.errors.phoneNumber[0] : '';
+                        this.validationErrors.email = result.errors && result.errors.email ? result.errors.email[0] : '';
+
+                        if (result.success === false) {
+                        this.generalError = result.message ? result.message : '';
+                        }
                     }
 
                 } catch (error) {
-                    console.error('Error:', error.message);
+                    console.error('Error:', error);
                 }
 }
 
@@ -88,6 +94,7 @@ const {id} = Astro.params;
                             </div>
                             <div class="flex flex-col gap-3 max-w-md bg-transparent rounded-lg">
                                 <div>
+                                    <template x-if="!service.isAmountPredefined">
                                     <input
                                             x-model="formData.phoneNumber"
                                             type="text" id="phone_number" name="phone_number"
@@ -95,6 +102,7 @@ const {id} = Astro.params;
                                                         text-sm shadow-sm outline-none focus:scale-105 focus:z-10
                                                        focus:border-sky-500 focus:ring-sky-500"
                                             placeholder="Broj telefona *"/>
+                                    </template>
                                     <p x-show="validationErrors.phoneNumber !== ''"
                                        class="text-red-500 text-sm mt-1"
                                        x-text="validationErrors.phoneNumber"></p>
@@ -132,6 +140,7 @@ const {id} = Astro.params;
                                                 class="w-36 rounded-md border border-gray-200
                                                             text-sm shadow-sm outline-none focus:scale-105 focus:z-10
                                                             focus:border-sky-500 focus:ring-sky-500">
+                                            <option value="Iznos">Iznos</option>
                                             <template x-for="amountOption in service.amountsPredefined">
                                                 <option :value="amountOption" x-text="amountOption/100"></option>
                                             </template>
@@ -148,6 +157,7 @@ const {id} = Astro.params;
                                    @click="submitForm">
                                     Kupi
                                 </a>
+                                <p x-if="generalError !== ''" class="text-red-500 text-sm mt-1" x-text="generalError"></p>
                             </div>
                         </div>
                     </div>
