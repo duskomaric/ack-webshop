@@ -95,7 +95,7 @@ const {id} = Astro.params;
                             </div>
                             <div class="flex flex-col gap-3 max-w-md bg-transparent rounded-lg">
                                 <div>
-                                    <template x-if="!service.isAmountPredefined">
+                                    <template x-if="!service.isAmountPredefined && service.type == 'SERVICE'">
                                     <input
                                             x-model="formData.phoneNumber"
                                             type="text" id="phone_number" name="phone_number"
