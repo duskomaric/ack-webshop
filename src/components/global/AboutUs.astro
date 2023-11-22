@@ -9,7 +9,7 @@ import PartnersCarousels from "./PartnersCarousels.astro";
                     O nama
                 </p>
                 <p  class="text-sm tracking-tight text-gray-600">
-                    <span id="rotating-text-o-nama" class="bg-red-500 text-white p-2">NAŠA PRIČA</span> U TEKSTU ISPOD<span id="blinking-cursor" class="text-lg relative">|</span>
+                    <span id="rotating-text-o-nama" class="bg-red-500 text-white p-2">NAŠA PRIČA</span> U TEKSTU ISPOD
                 </p>
             </div>
         </div>
@@ -46,14 +46,3 @@ import PartnersCarousels from "./PartnersCarousels.astro";
 
     setInterval(rotateText, 3000); // Change text every 3 seconds (adjust as needed)
 </script>
-<style>
-    #blinking-cursor {
-        animation: cursor-blink 1s step-start infinite;
-    }
-
-    @keyframes cursor-blink {
-        50% {
-            opacity: 0;
-        }
-    }
-</style>
