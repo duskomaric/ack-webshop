@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Navigation from "../components/global/Navigation.astro";
+import WebshopTitle from "../components/global/WebshopTitle.astro";
+import Footer from "../components/global/Footer.astro";
+---
+
+<BaseLayout>
+    <Navigation/>
+    <section class="bg-gray-50 border-y">
+        <div class="mx-auto w-full lg:px-24 max-w-7xl md:px-12 items-center px-8 py-24 scroll-mt-12">
+            <div class="mx-auto max-w-2xl text-center">
+                <div>
+                    <p class="text-gray-600 lg:text-4xl text-3xl tracking-tighter mb-3">
+                        Uh-oh!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="pt-20 pb-20 px-4 bg-white place-content-center">
+        <div class="text-center">
+            <h1 class="text-gray-600 text-5xl lg:text-8xl tracking-tighter mb-3">
+                404
+            </h1>
+            <p class="mt-4 text-gray-500 mb-5">Ne možemo da pronađemo tu stranicu.</p>
+            <a class="max-w-min h-12 font-medium rounded-lg text-white
+                        focus-visible:outline-white focus:outline-none
+                        bg-red-600 duration-200 focus-visible:ring-white
+                        hover:bg-red-500 lg:w-auto px-6 py-3"
+               href="/">
+                Nazad na početnu
+            </a>
+
+        </div>
+    </div>
+
+    <Footer/>
+</BaseLayout>

@@ -14,12 +14,21 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/orders/`;
                 x-data="{
                     order: {},
                     orderId: new URLSearchParams(window.location.search).get('orderId'),
+                    fetchOrder: async function() {
+                        try {
+                            const response = await fetch(`${window.servicesApi}${this.orderId}`);
+                            const data = await response.json();
 
-                    async fetchOrder()
-                    {
-                        this.order = await (await fetch(window.servicesApi + this.orderId))
-                            .json()
-                            .then(data => data.data);
+                            if (response.status === 404) {
+                                window.location.href = '/404';
+                                return;
+                            }
+
+                            this.order = data.data;
+                        } catch (error) {
+                            console.error('Error fetching order:', error);
+                            // Handle other errors as needed
+                        }
                     }
                 }"
                 x-init="fetchOrder()"
