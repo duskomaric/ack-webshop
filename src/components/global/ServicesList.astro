@@ -7,7 +7,7 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/services/`;
                 x-data="{
                     services: {},
                     async fetchServices() {
-                        this.result = await (await fetch(window.servicesApi))
+                        this.result = await (await fetch(window.servicesApi + '?perPage=99'))
                         .json()
                         .then(data => {
                                     this.services = data.data;
