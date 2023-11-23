@@ -88,9 +88,28 @@ const {id} = Astro.params;
                             <div class="flex flex-wrap items-center mb-6">
 
                                 <p class="max-w-md mb-8 text-gray-600">
-                                    <span class="block mb-2">Opis:</span>
-                                    Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
-                                    Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
+                                    <span class="block mb-2"></span>
+                                    <template x-if="!service.isAmountPredefined">
+                                        <div class="max-w-md">
+                                            <div class="flex justify-between justify-items-center gap-3">
+                                                <div>Minimalni iznos:</div>
+                                                <div x-text="(service?.amountMin/100).toFixed(2) + ' KM'"></div>
+                                            </div>
+                                            <div class="flex justify-between justify-items-center gap-3">
+                                                <div>Maksimalni iznos:</div>
+                                                <div x-text="(service?.amountMax/100).toFixed(2) + ' KM'"></div>
+                                            </div>
+                                            <div class="flex justify-between justify-items-center gap-3">
+                                                <div>Dozvoljeni iznosi sa decimalama:</div>
+                                                <template x-if="service.amountType === 'integer'">
+                                                    <div>NE</div>
+                                                </template>
+                                                <template x-if="service.amountType === 'numeric'">
+                                                    <div>DA</div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </template>
                                 </p>
                             </div>
                             <div class="flex flex-col gap-3 max-w-md bg-transparent rounded-lg">
