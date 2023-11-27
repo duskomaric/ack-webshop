@@ -14,7 +14,7 @@ const {id} = Astro.params;
         <div x-data="{
         service: {},
         formData: {
-            phoneNumber: '',
+            phoneNumberOrId: '',
             email: '',
             amount: ''
         },
@@ -27,7 +27,7 @@ const {id} = Astro.params;
 
         validationErrors: {
             amount: '',
-            phoneNumber: ''
+            phoneNumberOrId: ''
             //email: ''
         },
 
@@ -58,7 +58,7 @@ const {id} = Astro.params;
                         window.location.href = result.data.transaction.browser_redirection_url;
                     } else {
                         this.validationErrors.amount = result.errors && result.errors.amount ? result.errors.amount[0] : '';
-                        this.validationErrors.phoneNumber = result.errors && result.errors.phoneNumber ? result.errors.phoneNumber[0] : '';
+                        this.validationErrors.phoneNumberOrId = result.errors && result.errors.phoneNumberOrId ? result.errors.phoneNumberOrId[0] : '';
                         //this.validationErrors.email = result.errors && result.errors.email ? result.errors.email[0] : '';
 
                         if (result.success === false) {
@@ -116,17 +116,17 @@ const {id} = Astro.params;
                                 <div>
                                     <template x-if="!service.isAmountPredefined && service.type == 'SERVICE'">
                                     <input
-                                            x-model="formData.phoneNumber"
-                                            type="text" id="phone_number" name="phone_number"
+                                            x-model="formData.phoneNumberOrId"
+                                            type="text" id="phone_number_or_id" name="phone_number_or_id"
                                             class="w-full rounded-md border border-gray-200
                                                         text-sm shadow-sm outline-none focus:scale-105 focus:z-10
                                                        focus:border-sky-500 focus:ring-sky-500"
                                             autocomplete="tel"
-                                            placeholder="Broj telefona *"/>
+                                            :placeholder="service.isRequestingId ? 'ID *' : 'Broj telefona *'"/>
                                     </template>
-                                    <p x-show="validationErrors.phoneNumber !== ''"
+                                    <p x-show="validationErrors.phoneNumberOrId !== ''"
                                        class="text-red-500 text-sm mt-1"
-                                       x-text="validationErrors.phoneNumber"></p>
+                                       x-text="validationErrors.phoneNumberOrId"></p>
                                 </div>
                                 <!--<div>-->
                                 <!--    <input-->
