@@ -27,8 +27,8 @@ const {id} = Astro.params;
 
         validationErrors: {
             amount: '',
-            phoneNumberOrId: ''
-            //email: ''
+            phoneNumberOrId: '',
+            email: ''
         },
 
         generalError: '',
@@ -59,7 +59,7 @@ const {id} = Astro.params;
                     } else {
                         this.validationErrors.amount = result.errors && result.errors.amount ? result.errors.amount[0] : '';
                         this.validationErrors.phoneNumberOrId = result.errors && result.errors.phoneNumberOrId ? result.errors.phoneNumberOrId[0] : '';
-                        //this.validationErrors.email = result.errors && result.errors.email ? result.errors.email[0] : '';
+                        this.validationErrors.email = result.errors && result.errors.email ? result.errors.email[0] : '';
 
                         if (result.success === false) {
                         this.generalError = result.message ? result.message : '';
@@ -128,20 +128,20 @@ const {id} = Astro.params;
                                        class="text-red-500 text-sm mt-1"
                                        x-text="validationErrors.phoneNumberOrId"></p>
                                 </div>
-                                <!--<div>-->
-                                <!--    <input-->
-                                <!--            x-model="formData.email"-->
-                                <!--            type="email" id="email" name="email"-->
-                                <!--            class="w-full rounded-md border border-gray-200-->
-                                <!--                        text-sm shadow-sm outline-none focus:scale-105 focus:z-10-->
-                                <!--                       focus:border-sky-500 focus:ring-sky-500"-->
-                                <!--            autocomplete="email"-->
-                                <!--            placeholder="Email *"/>-->
+                                <div>
+                                    <input
+                                            x-model="formData.email"
+                                            type="email" id="email" name="email"
+                                            class="w-full rounded-md border border-gray-200
+                                                        text-sm shadow-sm outline-none focus:scale-105 focus:z-10
+                                                       focus:border-sky-500 focus:ring-sky-500"
+                                            autocomplete="email"
+                                            :placeholder="service.type == 'SERVICE' ? 'Email' : 'Email *'"/>
 
-                                <!--    <p x-show="validationErrors.email !== ''"-->
-                                <!--       class="text-red-500 text-sm mt-1"-->
-                                <!--       x-text="validationErrors.email"></p>-->
-                                <!--</div>-->
+                                    <p x-show="validationErrors.email !== ''"
+                                       class="text-red-500 text-sm mt-1"
+                                       x-text="validationErrors.email"></p>
+                                </div>
                                 <div>
                                     <template x-if="!service.isAmountPredefined">
                                         <input
