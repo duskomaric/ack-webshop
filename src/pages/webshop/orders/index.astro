@@ -68,7 +68,7 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/orders/`;
                                 </div>
                                 <div class="flex justify-between justify-items-center gap-3">
                                     <div>Broj telefona:</div>
-                                    <div x-text="order.phone_number"></div>
+                                    <div x-text="order.phoneNumberOrId"></div>
                                 </div>
                                 <div class="flex justify-between justify-items-center gap-3">
                                     <div>Iznos:</div>
@@ -87,6 +87,14 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/orders/`;
                                 <div class="flex justify-between justify-items-center gap-3">
                                     <div>Eksterni broj transakcije:</div>
                                     <div x-text="order.transaction?.payment_id"></div>
+                                </div>
+                                <div class="flex justify-between justify-items-center gap-3">
+                                    <div>Sequencer Identification:</div>
+                                    <div x-text="order.ackSequencerIdentification"></div>
+                                </div>
+                                <div class="flex justify-between justify-items-center gap-3">
+                                    <div>Transaction Identifier:</div>
+                                    <div x-text="order.ackOperatorOrServiceTransactionIdentifier"></div>
                                 </div>
                             </div>
 
