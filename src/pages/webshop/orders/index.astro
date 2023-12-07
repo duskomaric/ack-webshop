@@ -31,7 +31,7 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/purchase/`;
                         }
                     },
                    copyToClipboard: function() {
-                   const copyText = document.getElementById('voucher_code');
+                   const copyText = document.getElementById('voucher_num');
 
                    navigator.clipboard.writeText(copyText.value)
                        .then(() => {
@@ -82,9 +82,9 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/purchase/`;
                             <div class="max-w-md flex mb-10" x-show="order.service.type === 'VOUCHER'">
                                 <input
                                         x-model="orderTextToCopy"
-                                        id="voucher_code"
+                                        id="voucher_num"
                                         type="text"
-                                        :value="order.service?.serviceCode"
+                                        :value="order.service?.voucher_num"
                                         class="flex-1 mr-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-sky-500"
                                         readonly>
                                 <button
