@@ -15,7 +15,7 @@ const ackOrderCancellationApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/ser
                 x-data="{
                     order: {},
                     copied: false,
-                    hash: new URLSearchParams(window.location.search).get('hash'),
+                    hash: new URLSearchParams(window.location.search).get('orderId'),
                     fetch: async function() {
                         try {
                         console.log(`${window.ackOrderCancellationApi}${this.hash}`);
