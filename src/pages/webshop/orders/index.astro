@@ -135,12 +135,16 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/purchase/`;
                                     <div x-text="order.transaction?.payment_id"></div>
                                 </div>
                                 <div class="flex justify-between justify-items-center gap-3">
-                                    <div>Sequencer Identification:</div>
-                                    <div x-text="order.ackSequencerIdentification"></div>
+                                    <div>Datum:</div>
+                                    <div x-text="order.ackTransactionDate"></div>
+                                </div>
+                                <div class="flex justify-between justify-items-center gap-3">
+                                    <div>Vrijeme:</div>
+                                    <div x-text="order.ackTransactionTime"></div>
                                 </div>
                                 <div class="flex justify-between justify-items-center gap-3">
                                     <div>Transaction Identifier:</div>
-                                    <div x-text="order.ackOperatorOrServiceTransactionIdentifier"></div>
+                                    <div x-text="order.ackTransactionIdentifier"></div>
                                 </div>
                             </div>
 
