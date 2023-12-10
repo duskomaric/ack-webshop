@@ -59,7 +59,7 @@ const {id} = Astro.params;
 
                     if (response.ok) {
                         // If successful, redirect to the payment URL
-                        window.location.href = result.data.transaction.browser_redirection_url;
+                        window.location.href = result.browserRedirectionUrl;
                     } else {
                         this.loaderVisible = false;
                         this.validationErrors.amount = result.errors && result.errors.amount ? result.errors.amount[0] : '';
