@@ -17,9 +17,15 @@ const servicesApi = `${import.meta.env.PUBLIC_ACK_API_EP}/api/v1/services/`;
 
             <template x-for="service in services" :key="service.id">
                 <div class="flex justify-center col-span-1">
-                    <a :href="'/webshop/' + service.id" class="hover:scale-110 transition duration-500 cursor-pointer">
-                        <img class="max-h-12" :src="'/services/' + service.imageName" :alt="service.name">
-                    </a>
+                    <template x-if="service.isActive">
+                        <a :href="'/webshop/' + service.id" class="hover:scale-110 transition duration-500 cursor-pointer">
+                            <img class="max-h-12" :class="!service.isActive ? 'grayscale' : ''" :src="'/services/' + service.imageName" :alt="service.name">
+                        </a>
+                    </template>
+
+                    <template x-if="!service.isActive">
+                        <img class="max-h-12" :class="!service.isActive ? 'blur-sm' : ''" :src="'/services/' + service.imageName" :alt="service.name">
+                    </template>
                 </div>
             </template>
         </div>
